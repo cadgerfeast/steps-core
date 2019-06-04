@@ -1,0 +1,33 @@
+{
+  "name": "@steps/core",
+  "version": "0.0.1",
+  "bin": {
+    "steps": "bin/cli.js"
+  },
+  "scripts": {
+    "build": "echo Build",
+    "lint": "eslint bin/**",
+    "test": "jest",
+    "coveralls": "npm run lint && npm run test && cat ./coverage/lcov.info | coveralls"
+  },
+  "keywords": [
+    "steps",
+    "core"
+  ],
+  "author": "Jérémie Pichon <contact@cadgerfeast.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cadgerfeast/steps-core.git"
+  },
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "enquirer": "^2.3.0",
+    "minimist": "^1.2.0"
+  },
+  "devDependencies": {
+    "coveralls": "^3.0.3",
+    "eslint": "^5.16.0",
+    "jest": "^24.8.0"
+  }
+}
