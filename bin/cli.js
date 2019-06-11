@@ -7,6 +7,7 @@ const chalk = require('chalk');
 // Internal dependencies
 const enquirer = require('./helpers/enquirer');
 const manager = require('./helpers/manager');
+const git = require('./helpers/git');
 
 // Constants
 const args = require('minimist')(process.argv.slice(2));
@@ -22,6 +23,7 @@ const config = require('./helpers/config')(projectFolder);
 const coreUsage = require('./docs/core-usage');
 const initUsage = require('./docs/init-usage');
 const goUsage = require('./docs/go-usage');
+const setUsage = require('./docs/set-usage');
 
 const main = async () => {
   // Commands
@@ -45,20 +47,31 @@ const main = async () => {
     case 'go':
       if (args.help || typeof args._[1] === 'undefined') {
         console.info(goUsage);
+      } else if (!git.hasGit) {
+        console.error(chalk.red('Git is not installed on the system, cannot use steps.'));
       } else {
         const status = manager.go(args._[1], config);
         switch (status) {
           case 1:
-            console.info(chalk.red('Failed, specified step does not exist.'));
+            console.error(chalk.red('Failed, specified step does not exist.'));
             break;
           case 2:
-            console.info(chalk.yellow('No patch folder found for this step.'));
+            console.warn(chalk.yellow('No patch folder found for this step.'));
             break;
           default:
           case 0:
             console.info(chalk.green('Success.'));
             break;
         }
+      }
+      break;
+    case 'set':
+      if (args.help || typeof args._[1] === 'undefined') {
+        console.info(setUsage);
+      } else if (!git.hasGit) {
+        console.error(chalk.red('Git is not installed on the system, cannot use steps.'));
+      } else {
+        manager.set(args._[1], config);
       }
       break;
     default:

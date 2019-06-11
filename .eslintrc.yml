@@ -48,7 +48,7 @@ rules:
   guard-for-in: error
   handle-callback-err: error
   id-blacklist: error
-  id-length: error
+  id-length: off
   id-match: error
   implicit-arrow-linebreak: error
   indent: 'off'
@@ -63,14 +63,14 @@ rules:
     - unix
   lines-around-comment: error
   lines-around-directive: error
-  lines-between-class-members: error
+  lines-between-class-members: off
   max-classes-per-file: error
   max-depth: error
   max-len:
     - error
     - 160
   max-lines: error
-  max-lines-per-function: error
+  max-lines-per-function: off
   max-nested-callbacks: error
   max-params: error
   max-statements: off
@@ -81,7 +81,7 @@ rules:
   new-parens: error
   newline-after-var: off
   newline-before-return: off
-  newline-per-chained-call: error
+  newline-per-chained-call: off
   no-alert: error
   no-array-constructor: error
   no-async-promise-executor: error
@@ -92,7 +92,7 @@ rules:
   no-catch-shadow: error
   no-confusing-arrow: error
   no-console: off
-  no-continue: error
+  no-continue: off
   no-div-regex: error
   no-duplicate-imports: error
   no-else-return: error
@@ -124,7 +124,7 @@ rules:
   no-multi-str: error
   no-multiple-empty-lines: error
   no-native-reassign: error
-  no-negated-condition: error
+  no-negated-condition: off
   no-negated-in-lhs: error
   no-nested-ternary: error
   no-new: error
@@ -135,7 +135,7 @@ rules:
   no-octal-escape: error
   no-param-reassign: error
   no-path-concat: error
-  no-plusplus: error
+  no-plusplus: off
   no-process-env: error
   no-process-exit: error
   no-proto: error

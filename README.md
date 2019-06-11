@@ -24,9 +24,8 @@ Command line arguments:
 
 ## TODOs
 
-* steps set: sets patch for specified step with current modifications
-* steps reset: go back to initial step
 * steps go: if no arg, prompt number enquirer if valid options
+* steps reset: go back to initial step
 * steps previous: go previous step
 * step next: go next step
 * steps.config through [.js, .json, .yml]
