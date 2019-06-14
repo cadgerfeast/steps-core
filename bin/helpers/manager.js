@@ -14,7 +14,7 @@ module.exports = {
     if (!fs.existsSync(patchFolder)) {
       return 2;
     }
-    git.go(patchFolder);
+    git.go(patchFolder, config);
     return 0;
   },
   set: (id, config) => {
@@ -32,6 +32,11 @@ module.exports = {
       fs.mkdirSync(patchFolder);
     }
     git.set(`step-${id}.patch`, patchFolder, config);
+    return 0;
+  },
+  reset: () => {
+    console.info(chalk.yellow('\nResetting project..'));
+    git.reset();
     return 0;
   }
 };

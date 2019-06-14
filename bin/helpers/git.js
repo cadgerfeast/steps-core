@@ -11,9 +11,9 @@ class GitHelper {
       return false;
     }
   }
-  static go (patchFolder) {
-    console.info(patchFolder);
-    childProcess.execSync('git reset --hard');
+  static go (patchFolder, config) {
+    this.reset();
+    fs.copySync(patchFolder, config.projectFolder);
   }
   static set (patchName, patchFolder, config) {
     childProcess.execSync('git add --all');
@@ -27,6 +27,7 @@ class GitHelper {
           continue;
         }
         const dest = path.resolve(patchFolder, files[i]);
+        fs.removeSync(dest);
         fs.copySync(src, dest);
       }
     }
@@ -38,6 +39,10 @@ class GitHelper {
       }
     }
     return false;
+  }
+  static reset () {
+    childProcess.execSync('git add --all');
+    childProcess.execSync('git reset --hard');
   }
 }
 

@@ -1,5 +1,5 @@
 {
-  "name": "@steps/core",
+  "name": "steps-core",
   "version": "0.0.1",
   "bin": {
     "steps": "bin/cli.js"

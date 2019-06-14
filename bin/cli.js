@@ -24,6 +24,7 @@ const coreUsage = require('./docs/core-usage');
 const initUsage = require('./docs/init-usage');
 const goUsage = require('./docs/go-usage');
 const setUsage = require('./docs/set-usage');
+const resetUsage = require('./docs/set-usage');
 
 const main = async () => {
   // Commands
@@ -42,6 +43,15 @@ const main = async () => {
             console.info(chalk.green('\n  Success.'));
             break;
         }
+      }
+      break;
+    case 'reset':
+      if (args.help) {
+        console.info(resetUsage);
+      } else if (!git.hasGit) {
+        console.error(chalk.red('Git is not installed on the system, cannot use steps.'));
+      } else {
+        manager.reset();
       }
       break;
     case 'go':
