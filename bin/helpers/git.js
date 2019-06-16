@@ -16,6 +16,7 @@ class GitHelper {
     fs.copySync(patchFolder, config.projectFolder);
   }
   static set (patchName, patchFolder, config) {
+    fs.removeSync(patchFolder);
     childProcess.execSync('git add --all');
     let relativeFolder = path.relative(process.cwd(), config.srcFolder);
     relativeFolder = relativeFolder.trim() ? `${relativeFolder}` : '';
@@ -27,7 +28,6 @@ class GitHelper {
           continue;
         }
         const dest = path.resolve(patchFolder, files[i]);
-        fs.removeSync(dest);
         fs.copySync(src, dest);
       }
     }
