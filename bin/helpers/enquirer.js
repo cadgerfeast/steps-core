@@ -1,7 +1,9 @@
 const chalk = require('chalk');
 const path = require('path');
 const fs = require('fs');
-const { prompt } = require('enquirer');
+const { prompt, NumberPrompt } = require('enquirer');
+
+const manager = require('./manager');
 
 module.exports = {
   init: async (config) => {
@@ -49,5 +51,15 @@ module.exports = {
       fs.writeFileSync(path.resolve(step0PatchPath, 'dummy.md'), '# Dummy file.');
     }
     return 0;
+  },
+  go: async (config) => {
+    const prompt = new NumberPrompt({
+      name: 'number',
+      message: 'At which step do you want to go ?'
+    });
+    const result = await prompt.run();
+
+    // return go result
+    return manager.go(result, config);
   }
 };
