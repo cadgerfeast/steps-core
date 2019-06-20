@@ -1,4 +1,4 @@
-const cli = require('../bin/cli');
+import * as cli from '../src/cli';
 
 describe('CLI', () => {
   it('should initialize', () => {

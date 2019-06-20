@@ -1,39 +1,27 @@
-#!/usr/bin/env node
-
 // External dependencies
-const path = require('path');
-const chalk = require('chalk');
+import chalk from 'chalk';
+import minimist from 'minimist';
 
 // Internal dependencies
-const enquirer = require('./helpers/enquirer');
-const manager = require('./helpers/manager');
-const git = require('./helpers/git');
+import * as enquirerHelper from './helpers/enquirer';
+import * as managerHelper from './helpers/manager';
+import gitHelper from './helpers/git';
+import { getDoc } from './helpers/doc';
 
-// Constants
-const args = require('minimist')(process.argv.slice(2));
-let projectFolder = process.cwd();
-if (args.dir) {
-  projectFolder = path.resolve(process.cwd(), args.dir);
-}
+// Args
+const args = minimist(process.argv.slice(2));
 
-// Configuration
-const config = require('./helpers/config')(projectFolder);
-
-// Docs
-const coreUsage = require('./docs/core-usage');
-const initUsage = require('./docs/init-usage');
-const goUsage = require('./docs/go-usage');
-const setUsage = require('./docs/set-usage');
-const resetUsage = require('./docs/set-usage');
-
-const main = async () => {
+export default async () => {
   // Commands
   switch (args._[0]) {
+    case 'debug':
+      console.info('hello there');
+      break;
     case 'init':
       if (args.help) {
-        console.info(initUsage);
+        console.info(getDoc('init'));
       } else {
-        const status = await enquirer.init(config);
+        const status = await enquirerHelper.init();
         switch (status) {
           case 1:
             console.info(chalk.yellow('  Canceled.'));
@@ -47,20 +35,20 @@ const main = async () => {
       break;
     case 'reset':
       if (args.help) {
-        console.info(resetUsage);
-      } else if (!git.hasGit) {
+        console.info(getDoc('reset'));
+      } else if (!gitHelper.hasGit) {
         console.error(chalk.red('Git is not installed on the system, cannot use steps.'));
       } else {
-        manager.reset();
+        managerHelper.reset();
       }
       break;
     case 'go':
       if (args.help || typeof args._[1] === 'undefined') {
-        console.info(goUsage);
-      } else if (!git.hasGit) {
+        console.info(getDoc('go'));
+      } else if (!gitHelper.hasGit) {
         console.error(chalk.red('Git is not installed on the system, cannot use steps.'));
       } else {
-        const status = manager.go(args._[1], config);
+        const status = managerHelper.go(args._[1]);
         switch (status) {
           case 1:
             console.error(chalk.red('Failed, specified step does not exist.'));
@@ -77,17 +65,15 @@ const main = async () => {
       break;
     case 'set':
       if (args.help || typeof args._[1] === 'undefined') {
-        console.info(setUsage);
-      } else if (!git.hasGit) {
+        console.info(getDoc('set'));
+      } else if (!gitHelper.hasGit) {
         console.error(chalk.red('Git is not installed on the system, cannot use steps.'));
       } else {
-        manager.set(args._[1], config);
+        managerHelper.set(args._[1]);
       }
       break;
     default:
-      console.info(coreUsage);
+      console.info(getDoc('core'));
       break;
   }
 };
-
-main();

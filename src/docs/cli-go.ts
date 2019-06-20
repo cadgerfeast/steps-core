@@ -1,10 +1,12 @@
-const chalk = require('chalk');
+import chalk from 'chalk';
 
-module.exports = `
+export default () =>
+`
 ${chalk.blue('Usage:')}
-steps set ${chalk.green('<id>')} ${chalk.yellow('[opts]')}
+steps go ${chalk.green('<id>')} ${chalk.yellow('[opts]')}
 
 ${chalk.green('[Identifier]:')} Steps identifier, i.e (step-${chalk.green('<id>')})
 
 ${chalk.yellow('[Options]:')}
-  --help: Prints steps help`;
+  --help: Prints steps help`
+;
