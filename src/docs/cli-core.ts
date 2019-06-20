@@ -1,6 +1,7 @@
-const chalk = require('chalk');
+import chalk from 'chalk';
 
-module.exports = `
+export default () =>
+`
 ${chalk.blue('Usage:')}
 steps ${chalk.green('<cmd>')} ${chalk.yellow('[opts]')}
 
@@ -10,4 +11,5 @@ ${chalk.green('<Commands>:')}
 
 ${chalk.yellow('[Options]:')}
   --help: Prints steps help
-  --dir: Specify project directory`;
+  --dir: Specify project directory`
+;
