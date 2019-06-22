@@ -1,7 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import chalk from 'chalk';
-import { prompt, NumberPrompt } from 'enquirer';
+import { prompt } from 'enquirer';
 
 // Internal dependencies
 import * as managerHelper from './manager';
@@ -57,12 +57,11 @@ export async function init () {
 }
 
 export async function go () {
-  const prompt = new NumberPrompt({
-    name: 'number',
-    message: 'At which step do you want to go ?'
-  });
-  const result = await prompt.run();
 
-  // return go result
-  return managerHelper.go(result);
+  const answers: EnquirerAnswers = await prompt({
+    type: 'numeral',
+    name: 'goNumber',
+    message: chalk.white('At which step do you want to go ?')
+  });
+  return managerHelper.go(answers.goNumber);
 }
