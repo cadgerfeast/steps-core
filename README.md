@@ -22,15 +22,28 @@ Command line arguments:
 |:-------|:------------------|:--------|
 | --help | Prints steps help | `N/A`   |
 
-## TODOs
+## Contributors
 
-* steps go: if no arg, prompt number enquirer if valid options
-* steps reset: go back to initial step
-* steps previous: go previous step
-* step next: go next step
-* steps.config through [.js, .json, .yml]
-* i18n readmes with links in example
-* better coverage
+<table>
+  <tbody>
+    <tr>
+      <td align="center">
+        <a href="https://github.com/cadgerfeast">
+          <img src="https://github.com/cadgerfeast.png?size=100" alt="cadgerfeast" width="100px">
+          <br/>
+          <span>cadgerfeast</span>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/Gosunet">
+          <img src="https://github.com/Gosunet.png?size=100" alt="Gosunet" width="100px">
+          <br/>
+          <span>Gosunet</span>
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ## License
 

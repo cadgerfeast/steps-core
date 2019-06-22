@@ -1,8 +1,10 @@
-const chalk = require('chalk');
+import chalk from 'chalk';
 
-module.exports = `
+export default () =>
+`
 ${chalk.blue('Usage:')}
 steps reset ${chalk.yellow('[opts]')}
 
 ${chalk.yellow('[Options]:')}
-  --help: Prints steps help`;
+  --help: Prints steps help`
+;

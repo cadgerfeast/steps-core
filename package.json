@@ -2,11 +2,11 @@
   "name": "steps-core",
   "version": "0.0.2",
   "bin": {
-    "steps": "bin/cli.js"
+    "steps": "dist/index.js"
   },
   "scripts": {
-    "build": "echo Build",
-    "lint": "eslint bin/**",
+    "build": "tsc",
+    "lint": "tslint 'src/**/*.ts' 'test/**/*.spec.ts'",
     "test": "jest",
     "coveralls": "npm run lint && npm run test && cat ./coverage/lcov.info | coveralls"
   },
@@ -27,8 +27,14 @@
     "minimist": "^1.2.0"
   },
   "devDependencies": {
+    "@types/fs-extra": "^7.0.0",
+    "@types/jest": "^24.0.15",
+    "@types/minimist": "^1.2.0",
+    "@types/node": "^12.0.8",
     "coveralls": "^3.0.3",
-    "eslint": "^5.16.0",
-    "jest": "^24.8.0"
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.17.0",
+    "typescript": "^3.5.2"
   }
 }
