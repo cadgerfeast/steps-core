@@ -70,7 +70,7 @@ export default async () => {
   }
 };
 
-function handleGoResponse(status: number) {
+function handleGoResponse (status: number) {
   switch (status) {
     case 1:
       console.error(chalk.red('Failed, specified step does not exist.'));
