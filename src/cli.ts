@@ -43,24 +43,16 @@ export default async () => {
       }
       break;
     case 'go':
-      if (args.help || typeof args._[1] === 'undefined') {
+      if (args.help) {
         console.info(getDoc('go'));
+      } else if (typeof args._[1] === 'undefined') {
+        const status = await enquirerHelper.go();
+        handleGoResponse(status);
       } else if (!gitHelper.hasGit) {
         console.error(chalk.red('Git is not installed on the system, cannot use steps.'));
       } else {
         const status = managerHelper.go(args._[1]);
-        switch (status) {
-          case 1:
-            console.error(chalk.red('Failed, specified step does not exist.'));
-            break;
-          case 2:
-            console.warn(chalk.yellow('No patch folder found for this step.'));
-            break;
-          default:
-          case 0:
-            console.info(chalk.green('Success.'));
-            break;
-        }
+        handleGoResponse(status);
       }
       break;
     case 'set':
@@ -77,3 +69,18 @@ export default async () => {
       break;
   }
 };
+
+function handleGoResponse (status: number) {
+  switch (status) {
+    case 1:
+      console.error(chalk.red('Failed, specified step does not exist.'));
+      break;
+    case 2:
+      console.warn(chalk.yellow('No patch folder found for this step.'));
+      break;
+    default:
+    case 0:
+      console.info(chalk.green('Success.'));
+      break;
+  }
+}

@@ -3,6 +3,8 @@ import * as fs from 'fs';
 import chalk from 'chalk';
 import { prompt } from 'enquirer';
 
+// Internal dependencies
+import * as managerHelper from './manager';
 // Configuration
 import config, { UserConfig } from '../conf/config';
 
@@ -52,4 +54,14 @@ export async function init () {
     fs.writeFileSync(path.resolve(step0PatchPath, 'dummy.md'), '# Dummy file.');
   }
   return 0;
+}
+
+export async function go () {
+
+  const answers: EnquirerAnswers = await prompt({
+    type: 'numeral',
+    name: 'goNumber',
+    message: chalk.white('At which step do you want to go ?')
+  });
+  return managerHelper.go(answers.goNumber);
 }
