@@ -8,7 +8,7 @@ import * as managerHelper from './manager';
 // Configuration
 import config, { UserConfig } from '../conf/config';
 
-export async function init () {
+export async function init() {
   // Validate Path
   let answers: EnquirerAnswers = await prompt({
     type: 'confirm',
@@ -31,7 +31,7 @@ export async function init () {
     type: 'input',
     initial: 'patch',
     name: 'patchFolder',
-    validate (value: string): boolean|string {
+    validate(value: string): boolean | string {
       if (!value.match(/^[a-z0-9]+$/ui)) {
         return 'Only alphanumeric characters allowed.';
       }
@@ -56,12 +56,49 @@ export async function init () {
   return 0;
 }
 
-export async function go () {
+export async function go() {
+  // get steps folder
+  let stepChoices: string[];
 
+  try {
+    const stepsFolder = path.resolve(config.projectFolder, 'steps');
+    stepChoices = await new Promise((resolve, reject) => {
+      const steps: string[] = [];
+      // get all dir under the steps folder
+      fs.readdir(stepsFolder, (err, files) => {
+        if (err) {
+          reject(err);
+        } else {
+          files.forEach((fileName) => {
+            // for each folder beginning by step
+            if (fileName.startsWith('step')) {
+              const patchFolder = path.resolve(stepsFolder, `${fileName}/${config.patchFolder}`);
+              // only if patch folder exits in step folder
+              if (fs.existsSync(patchFolder)) {
+                // remove beginning of folder name, to get only the step id
+                steps.push(fileName.replace('step-', ''));
+              }
+            }
+          });
+          resolve(steps);
+        }
+      });
+    });
+  } catch (err) {
+    // error while getting path
+    return 3;
+  }
+
+  // no choices
+  if (stepChoices.length === 0) {
+    return 3;
+  }
+  // prompt select
   const answers: EnquirerAnswers = await prompt({
-    type: 'numeral',
-    name: 'goNumber',
-    message: chalk.white('At which step do you want to go ?')
+    type: 'select',
+    name: 'selectGo',
+    message: chalk.white('At which step do you want to go?'),
+    choices: stepChoices
   });
-  return managerHelper.go(answers.goNumber);
+  return managerHelper.go(answers.selectGo);
 }
