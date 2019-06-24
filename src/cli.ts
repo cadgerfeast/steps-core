@@ -78,6 +78,9 @@ function handleGoResponse (status: number) {
     case 2:
       console.warn(chalk.yellow('No patch folder found for this step.'));
       break;
+    case 3:
+      console.warn(chalk.yellow('No step to go.'));
+      break;
     default:
     case 0:
       console.info(chalk.green('Success.'));
