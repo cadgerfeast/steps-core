@@ -8,7 +8,7 @@ import * as managerHelper from './manager';
 // Configuration
 import config, { UserConfig } from '../conf/config';
 
-export async function init() {
+export async function init () {
   // Validate Path
   let answers: EnquirerAnswers = await prompt({
     type: 'confirm',
@@ -31,7 +31,7 @@ export async function init() {
     type: 'input',
     initial: 'patch',
     name: 'patchFolder',
-    validate(value: string): boolean | string {
+    validate (value: string): boolean | string {
       if (!value.match(/^[a-z0-9]+$/ui)) {
         return 'Only alphanumeric characters allowed.';
       }
@@ -56,7 +56,7 @@ export async function init() {
   return 0;
 }
 
-export async function go() {
+export async function go () {
   // get steps folder
   let stepChoices: string[];
 
