@@ -18,9 +18,13 @@ npm install -g @steps/core
 
 Command line arguments:
 
-| Name   | Description       | Default |
-|:-------|:------------------|:--------|
-| --help | Prints steps help | `N/A`   |
+| Name  | Description                 | Arg    |
+|:------|:----------------------------|:-------|
+| init  | Initializes a project       | `N/A`  |
+| go    | Goes to step-<id>           | `<id>` |
+| reset | Resets current progression  | `N/A`  |
+| set   | Sets patch for step-<id>    | `<id>` |
+| serve | Serves the tour             | `N/A`  |
 
 ## Contributors
 
