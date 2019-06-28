@@ -5,6 +5,7 @@ import minimist from 'minimist';
 // Internal dependencies
 import * as enquirerHelper from './helpers/enquirer';
 import * as managerHelper from './helpers/manager';
+import * as tourHelper from './helpers/tour';
 import gitHelper from './helpers/git';
 import { getDoc } from './helpers/doc';
 
@@ -14,9 +15,6 @@ const args = minimist(process.argv.slice(2));
 export default async () => {
   // Commands
   switch (args._[0]) {
-    case 'debug':
-      console.info('hello there');
-      break;
     case 'init':
       if (args.help) {
         console.info(getDoc('init'));
@@ -62,6 +60,13 @@ export default async () => {
         console.error(chalk.red('Git is not installed on the system, cannot use steps.'));
       } else {
         managerHelper.set(args._[1]);
+      }
+      break;
+    case 'serve':
+      if (args.help) {
+        console.info(getDoc('serve'));
+      } else {
+        await tourHelper.serve();
       }
       break;
     default:

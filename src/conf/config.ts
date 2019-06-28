@@ -6,12 +6,17 @@ export interface UserConfig {
   [key: string]: string;
 }
 
+interface TourOptions {
+  port: number;
+}
+
 class Configuration {
   // Attributes
   public srcFolder: string;
   public patchFolder: string;
   public projectFolder: string;
   public ignore: string[];
+  public tour: TourOptions;
   // Constructor
   constructor () {
     const args = minimist(process.argv.slice(2));
@@ -23,6 +28,9 @@ class Configuration {
     this.srcFolder = './';
     this.patchFolder = 'patch';
     this.projectFolder = projectFolder;
+    this.tour = {
+      port: 9000
+    };
     this.ignore = [];
     this.readUserConfiguration(projectFolder);
     this.srcFolder = path.resolve(projectFolder, this.srcFolder);
