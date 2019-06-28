@@ -5,7 +5,10 @@ import opener from 'opener';
 import * as path from 'path';
 import * as fs from 'fs';
 
+import * as componentHelper from './component';
+
 import 'svelte/register';
+
 import Tour from '../components/tour.svelte';
 
 import Markdown from 'markdown-it';
@@ -43,18 +46,20 @@ export async function serve () {
       app.use('/static', express.static(path.resolve(__dirname, '../static')));
       app.use('/tour', (req, res, next) => {
         res.set('Cache-Control', 'public, max-age=3600');
+        const markdownPath = path.resolve(config.projectFolder, req.path.substring(1));
         if (req.path === '/') {
           res.redirect('/tour/README.md');
         } else if (req.path.includes('.md')) {
-          let markdown = fs.readFileSync(path.resolve(config.projectFolder, req.path.substring(1)), 'utf8');
+          let markdown = fs.readFileSync(markdownPath, 'utf8');
           markdown = emoji.emojify(markdown);
+          markdown = componentHelper.componentify(markdown, markdownPath);
           const tpl = {
             markdown: md.render(markdown)
           };
           const { html, css, head } = Tour.default.render(tpl);
           res.render(path.resolve(__dirname, '../templates/index.html'), { html, css: css.code, head });
         } else {
-          res.sendFile(path.resolve(config.projectFolder, req.path.substring(1)));
+          res.sendFile(markdownPath);
         }
       });
       app.listen(config.tour.port, () => {
