@@ -58,27 +58,7 @@ export async function init () {
 
 export async function go () {
   // get steps folder
-  const stepChoices: string[] = [];
-  try {
-    const stepsFolder = path.resolve(config.projectFolder, 'steps');
-    // get all dir under the steps folder
-    const files = fs.readdirSync(stepsFolder);
-    files.forEach((fileName) => {
-      // for each folder beginning by step
-      if (fileName.startsWith('step')) {
-        const patchFolder = path.resolve(stepsFolder, `${fileName}/${config.patchFolder}`);
-        // only if patch folder exits in step folder
-        if (fs.existsSync(patchFolder)) {
-          // remove beginning of folder name, to get only the step id
-          stepChoices.push(fileName.replace('step-', ''));
-        }
-      }
-    });
-  } catch (err) {
-    // error while getting path
-    return 3;
-  }
-
+  const stepChoices = managerHelper.getAvalaibleSteps().map(String);
   // no choices
   if (stepChoices.length === 0) {
     return 3;
