@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import minimist from 'minimist';
 
 export interface UserConfig {
-  [key: string]: string;
+  [key: string]: any;
 }
 
 interface TourOptions {

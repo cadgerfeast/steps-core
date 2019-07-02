@@ -1,12 +1,15 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import chalk from 'chalk';
+import mustache from 'mustache';
 import { prompt } from 'enquirer';
 
 // Internal dependencies
 import * as managerHelper from './manager';
 // Configuration
 import config, { UserConfig } from '../conf/config';
+// I18n
+import i18n from './i18n';
 
 export async function init () {
   // Validate Path
@@ -20,6 +23,7 @@ export async function init () {
     return 1;
   }
   const userConfig: UserConfig = {};
+  // Src path
   answers = await prompt({
     type: 'input',
     initial: './',
@@ -27,6 +31,38 @@ export async function init () {
     message: chalk.white('What is the src folder?')
   });
   userConfig.srcFolder = answers.srcPath;
+  // Localization
+  answers = await prompt({
+    type: 'multiselect',
+    initial: ['en-gb'],
+    name: 'lang',
+    message: chalk.white('Which langs will be supported?'),
+    choices: [
+      { name: 'en-gb' },
+      { name: 'fr-fr' }
+    ],
+    onSubmit: function () {
+      if ((this as any).selected.length === 0) {
+        (this as any).enable((this as any).focused);
+      }
+    }
+  } as any);
+  userConfig.lang = answers.lang;
+  // Number of steps
+  answers = await prompt({
+    type: 'input',
+    initial: 1,
+    name: 'nbSteps',
+    validate (value: string): boolean | string {
+      if (!value.match(/^[0-9]+$/ui)) {
+        return 'Please enter a integer.';
+      }
+      return true;
+    },
+    message: chalk.white(`How many steps do you want? (${chalk.green('Steps can be added later')})`)
+  });
+  const nbSteps = parseInt(answers.nbSteps, 10);
+  // Patch folder name
   answers = await prompt({
     type: 'input',
     initial: 'patch',
@@ -46,12 +82,27 @@ export async function init () {
   if (!fs.existsSync(stepsPath)) {
     console.info(chalk.blue('Generating steps folder.'));
     fs.mkdirSync(stepsPath);
-    const step0Path = path.resolve(stepsPath, 'step-0');
-    fs.mkdirSync(step0Path);
-    fs.writeFileSync(path.resolve(step0Path, 'README.md'), '# step-0');
-    const step0PatchPath = path.resolve(step0Path, userConfig.patchFolder);
-    fs.mkdirSync(step0PatchPath);
-    fs.writeFileSync(path.resolve(step0PatchPath, 'dummy.md'), '# Dummy file.');
+    for (let i = 0; i < nbSteps; i++) {
+      const stepPath = path.resolve(stepsPath, `step-${i}`);
+      fs.mkdirSync(stepPath);
+      for (const lang of userConfig.lang) {
+        const langPath = path.resolve(stepPath, lang);
+        fs.mkdirSync(langPath);
+        const readmeTpl = fs.readFileSync(path.resolve(__dirname, '../templates/README.md'), 'utf8');
+        const fileContent = mustache.render(readmeTpl, {
+          id: i,
+          previousId: i - 1,
+          nextId: i + 1,
+          previous: (i !== 0),
+          next: (i !== nbSteps - 1),
+          lang: lang,
+          i18n: i18n(lang)
+        });
+        fs.writeFileSync(path.resolve(langPath, 'README.md'), fileContent);
+      }
+    }
+  } else {
+    return 2;
   }
   return 0;
 }
