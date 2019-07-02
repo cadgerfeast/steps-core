@@ -69,6 +69,22 @@ export default async () => {
         await tourHelper.serve();
       }
       break;
+    case 'next':
+      if (args.help) {
+        console.info(getDoc('next'));
+      } else {
+        const status = await managerHelper.next();
+        handleNextPreviousResponse(status);
+      }
+      break;
+    case 'previous':
+      if (args.help) {
+        console.info(getDoc('previous'));
+      } else {
+        const status = await managerHelper.previous();
+        handleNextPreviousResponse(status);
+      }
+      break;
     default:
       console.info(getDoc('core'));
       break;
@@ -91,4 +107,17 @@ function handleGoResponse (status: number) {
       console.info(chalk.green('Success.'));
       break;
   }
+}
+
+function handleNextPreviousResponse (status: number) {
+  switch (status) {
+    case 4:
+      console.warn(chalk.red('You already are in the final working step!'));
+      return;
+    case 5:
+      console.warn(chalk.red('You already are in the first working step!'));
+      return;
+  }
+  // next/previous ok
+  handleGoResponse(status);
 }
