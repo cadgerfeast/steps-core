@@ -18,13 +18,15 @@ npm install -g steps-core
 
 Command line arguments:
 
-| Name  | Description                 | Arg    |
-|:------|:----------------------------|:-------|
-| init  | Initializes a project       | `N/A`  |
-| go    | Goes to step-<id>           | `<id>` |
-| reset | Resets current progression  | `N/A`  |
-| set   | Sets patch for step-<id>    | `<id>` |
-| serve | Serves the tour             | `N/A`  |
+| Name     | Description                 | Arg    |
+|:---------|:----------------------------|:-------|
+| init     | Initializes a project       | `N/A`  |
+| go       | Goes to step-<id>           | `<id>` |
+| next     | Go to the next step         | `N/A`  |
+| previous | Go to the previous step     | `N/A`  |
+| reset    | Resets current progression  | `N/A`  |
+| set      | Sets patch for step-<id>    | `<id>` |
+| serve    | Serves the tour             | `N/A`  |
 
 ## Contributors
 
