@@ -11,7 +11,7 @@
 ## Installation
 
 ``` bash
-npm install -g steps-core
+npm install -g @steps/core
 ```
 
 ## Usage
