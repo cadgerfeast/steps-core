@@ -24,6 +24,9 @@ export default async () => {
           case 1:
             console.info(chalk.yellow('  Canceled.'));
             break;
+          case 2:
+            console.info(chalk.yellow('  The steps folder already exists.'));
+            break;
           default:
           case 0:
             console.info(chalk.green('\n  Success.'));
