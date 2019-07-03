@@ -1,10 +1,10 @@
 # @steps/core
 
-[![Version](https://badge.fury.io/js/steps-core.svg)](https://www.npmjs.com/package/steps-core)
+[![Version](https://badge.fury.io/js/%40steps%2Fcore.svg)](https://www.npmjs.com/package/@steps/core)
 [![Build](https://travis-ci.org/cadgerfeast/steps-core.svg?branch=master)](https://travis-ci.org/cadgerfeast/steps-core)
-[![Downloads](https://img.shields.io/npm/dt/steps-core.svg)](https://www.npmjs.com/package/steps-core)
+[![Downloads](https://img.shields.io/npm/dt/@steps/core.svg)](https://www.npmjs.com/package/@steps/core)
 [![Coverage Status](https://coveralls.io/repos/github/cadgerfeast/steps-core/badge.svg?branch=master)](https://coveralls.io/github/cadgerfeast/steps-core?branch=master)
-[![License](https://img.shields.io/npm/l/steps-core.svg)](https://github.com/cadgerfeast/steps-core/blob/master/LICENSE)
+[![License](https://img.shields.io/npm/l/@steps/core.svg)](https://github.com/cadgerfeast/steps-core/blob/master/LICENSE)
 
 > Step by step tour generator
 

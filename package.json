@@ -1,5 +1,5 @@
 {
-  "name": "steps-core",
+  "name": "@steps/core",
   "version": "0.0.3",
   "bin": {
     "steps": "dist/index.js"
@@ -21,8 +21,9 @@
     "coveralls": "npm run lint && npm run test && cat ./coverage/lcov.info | coveralls"
   },
   "keywords": [
-    "steps",
-    "core"
+    "@steps",
+    "core",
+    "@steps/core"
   ],
   "author": "Jérémie Pichon <contact@cadgerfeast.com>",
   "license": "MIT",
